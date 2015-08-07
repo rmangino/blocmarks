@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get 'incomming/create'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
