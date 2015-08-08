@@ -5,4 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :topics
+
+  def self.user_for_email_address(email)
+    User.find_by(email: email)
+  end
 end

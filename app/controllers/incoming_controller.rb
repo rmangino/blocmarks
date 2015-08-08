@@ -4,10 +4,20 @@ class IncomingController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def create
-    puts "INCOMING PARAMS HERE: #{params}"
+    # puts "INCOMING PARAMS HERE: #{params}"
 
-    # You put the message-splitting and business
-    # magic here.
+    from_address = params[:sender]
+    user = User.user_for_email_address(from_address)
+    title = params[:subject]
+    body_plain = params[:stripped-text]
+
+    puts "from : #{from_address}"
+    puts "title: #{title}"
+    puts "body : #{body_plain}"
+    puts "user : #{user}"
+
+
+    # You put the message-splitting and business magic here.
     # Find the user by using params[:sender]
     # Find the topic by using params[:subject]
     # Assign the url to a variable after retreiving it from params["body-plain"]
