@@ -12,6 +12,11 @@ class IncomingController < ApplicationController
     body_plain = params["stripped-text"]
     bookmark_url = URI.extract(body_plain).first
 
+    puts "from : #{from_address}"
+    puts "body : #{body_plain}"
+    puts "url  : #{bookmark_url}"
+    puts "user : #{user}"
+
     if user && bookmark_url
       # The email's subject represents a topic. If no subject is present
       # add the bookmark to the "default" topic.
@@ -20,7 +25,10 @@ class IncomingController < ApplicationController
         topic = Topic.default_topic_for_user(user)
       else
 # is this an existing or new topic?
-        topic = Topic.new(title: topic_string, user: user)
+        topic = Topic.find_by(title: topic_string)
+        if nil == topic
+          topic = Topic.new(title: topic_string, user: user)
+        end
       end
 
       bookmark = Bookmark.create!(url: bookmark_url, topic: topic)
@@ -29,10 +37,6 @@ class IncomingController < ApplicationController
       puts " --- SUCCESS ---"
     end
 
-    # puts "from : #{from_address}"
-    # puts "body : #{body_plain}"
-    # puts "url  : #{bookmark_url}"
-    # puts "user : #{user}"
 
 
     # You put the message-splitting and business magic here.
