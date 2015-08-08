@@ -4,13 +4,29 @@ class IncomingController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def create
-    # puts "INCOMING PARAMS HERE: #{params}"
-
+    # Is the email from one of our users?
     from_address = params[:sender]
     user = User.user_for_email_address(from_address)
-    title = params[:subject]
+
+    # Does the email body contain at least one url?
     body_plain = params["stripped-text"]
     bookmark_url = URI.extract(body_plain).first
+
+    if user && bookmark_url
+      # The email's subject represents a topic. If no subject is present
+      # add the bookmark to the "default" topic.
+      topic_string = params[:subject]
+      if nil == topic_string
+        topic = Topic.default_topic_for_user(user)
+      else
+        topic = Topic.new(title: topic_string, user: user)
+      end
+
+      bookmark = Bookmark.create!(url: bookmark_url, topic: topic)
+      topic.update_attributes!(bookmark: bookmark)
+      topic.save!
+      puts " --- SUCCESS ---"
+    end
 
     puts "from : #{from_address}"
     puts "title: #{title}"
