@@ -9,7 +9,7 @@ class IncomingController < ApplicationController
     from_address = params[:sender]
     user = User.user_for_email_address(from_address)
     title = params[:subject]
-    body_plain = params[:stripped-text]
+    body_plain = params["stripped-text"]
 
     puts "from : #{from_address}"
     puts "title: #{title}"
