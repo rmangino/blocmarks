@@ -1,2 +1,2 @@
-module IncommingHelper
+module IncomingHelper
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe IncommingController, type: :controller do
+RSpec.describe IncomingController, type: :controller do
 
   describe "GET #create" do
     it "returns http success" do
