@@ -19,6 +19,7 @@ class IncomingController < ApplicationController
       if nil == topic_string
         topic = Topic.default_topic_for_user(user)
       else
+# is this an existing or new topic?
         topic = Topic.new(title: topic_string, user: user)
       end
 
@@ -28,11 +29,10 @@ class IncomingController < ApplicationController
       puts " --- SUCCESS ---"
     end
 
-    puts "from : #{from_address}"
-    puts "title: #{title}"
-    puts "body : #{body_plain}"
-    puts "url  : #{bookmark_url}"
-    puts "user : #{user}"
+    # puts "from : #{from_address}"
+    # puts "body : #{body_plain}"
+    # puts "url  : #{bookmark_url}"
+    # puts "user : #{user}"
 
 
     # You put the message-splitting and business magic here.
