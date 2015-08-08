@@ -10,10 +10,12 @@ class IncomingController < ApplicationController
     user = User.user_for_email_address(from_address)
     title = params[:subject]
     body_plain = params["stripped-text"]
+    bookmark_url = URI.extract(body_plain).first
 
     puts "from : #{from_address}"
     puts "title: #{title}"
     puts "body : #{body_plain}"
+    puts "url  : #{bookmark_url}"
     puts "user : #{user}"
 
 
