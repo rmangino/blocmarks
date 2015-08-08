@@ -32,7 +32,7 @@ class IncomingController < ApplicationController
       end
 
       bookmark = Bookmark.create!(url: bookmark_url, topic: topic)
-      topic.update_attributes!(bookmark: bookmark)
+      topic.bookmarks << bookmark
       topic.save!
       puts " --- SUCCESS ---"
     end
