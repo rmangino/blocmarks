@@ -16,11 +16,11 @@ class IncomingController < ApplicationController
       # The email's subject represents a topic. If no subject is present
       # add the bookmark to the "default" topic.
       topic_string = params[:subject]
-      if nil == topic_string || topic_string.blank?
+      if topic_string.blank?
         topic = Topic.default_topic_for_user(user)
       else
         topic = Topic.find_by(title: topic_string)
-        if nil == topic
+        if topic.nil?
           topic = Topic.new(title: topic_string, user: user)
         end
       end
