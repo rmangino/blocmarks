@@ -4,11 +4,14 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'application#hello'
+  root 'topics#index'
 
   devise_for :users
 
-  #get 'incoming/create'
+  resources :topics do
+    resources :bookmarks, except: [:index]
+  end
+
   post :incoming, to: 'incoming#create'
 
   # Example of regular route:

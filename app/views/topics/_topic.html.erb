@@ -1,0 +1,24 @@
+<%= content_tag :div, class: 'media', id:"topic-#{topic.id}" do %>
+  <div class="media-body">
+    <h1>
+      <%= topic.title %>
+
+      <%# You can delete a default topic but you can't edit it %>
+      <% if !topic.is_default_topic_for_user?(current_user) %>
+        <%= link_to "Edit", edit_topic_path(topic), class: 'btn btn-success' %>
+      <% end %>
+
+      <%= link_to "Delete", [topic], class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure?" } %>
+    </h1>
+
+    <% if topic.bookmarks.count > 0 %>
+      <br>
+      <h3>
+        <%= "Bookmarks: " %> <br>
+        <% topic.bookmarks.each do |bookmark| %>
+          <%= render partial: 'topics/bookmarks/bookmark', locals: { topic: topic, bookmark: bookmark } %>
+        <% end %>
+      </h3>
+    <% end %>
+  </div>
+<% end %>
