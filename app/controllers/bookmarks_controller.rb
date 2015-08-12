@@ -1,19 +1,19 @@
 class BookmarksController < ApplicationController
+  load_and_authorize_resource # CanCanCan gem
+
   def show
-    find_bookmark
   end
 
   def new
-    @bookmark = Bookmark.new
+    @topic = Topic.find(params[:topic_id])
   end
 
   def create
-    @bookmark = Wiki.new(bookmark_params)
-    @bookmark.user = current_user
-
+    @topic = Topic.find(params[:topic_id])
+    @bookmark.topic = @topic
     if @bookmark.save
       flash[:notice] = "Bookmark was saved."
-      redirect_to @bookmark
+      redirect_to root_path
     else
       flash[:error] = "There was an error saving the bookmark. Please try again."
       render :new
@@ -21,15 +21,12 @@ class BookmarksController < ApplicationController
   end
 
   def edit
-    find_bookmark
   end
 
   def update
-    find_bookmark
-
     if @bookmark.update_attributes(bookmark_params)
       flash[:notice] = "Bookmark was updated."
-      redirect_to @bookmark
+      redirect_to root_path
     else
       flash[:error] = "There was an error saving the bookmark. Please try again."
       render :edit
@@ -38,8 +35,6 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    find_bookmark
-
     @bookmark.destroy
     flash[:notice] = "Bookmark deleted."
     redirect_to root_path

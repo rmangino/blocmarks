@@ -1,0 +1,18 @@
+<%= content_tag :div, class: 'media', id:"bookmark-#{bookmark.id}" do %>
+  <div class="media-body">
+
+    <% if can? :update, bookmark %>
+      <%= link_to edit_topic_bookmark_path(bookmark.topic, bookmark) do %>
+        <i class="glyphicon glyphicon-edit edit-glyph"></i>
+      <% end %>
+    <% end %>
+
+    <% if can? :destroy, bookmark %>
+      <%= link_to [bookmark.topic, bookmark], method: :delete, data: { confirm: "Are you sure?" } do %>
+        <i class="glyphicon glyphicon-trash trashcan"></i>
+      <% end %>
+    <% end %>
+
+    <a target="blank" href=<%= "#{bookmark.url}" %>><%= bookmark.url %></a>
+  </div>
+<% end %>

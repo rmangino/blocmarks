@@ -1,19 +1,18 @@
 class TopicsController < ApplicationController
+  load_and_authorize_resource # CanCanCan gem
+
   def index
     @topics = Topic.visible_to(current_user)
   end
 
   def show
-    find_topic
     @bookmarks = @topic.bookmarks.includes(:user)
   end
 
   def new
-    @topic = Topic.new
   end
 
   def create
-    @topic = Topic.new(topic_params)
     @topic.user = current_user
 
     if @topic.save
@@ -27,24 +26,19 @@ class TopicsController < ApplicationController
   end
 
   def edit
-    find_topic
   end
 
   def update
-    find_topic
-
     if @topic.update_attributes(topic_params)
       flash[:notice] = "Topic was updated."
       redirect_to @topic
     else
       flash[:error] = "There was an error saving the topic. Please try again."
-      render :edit
+      render :root_path
     end
   end
 
   def destroy
-    find_topic
-
     if @topic.destroy
       flash[:notice] = "Topic deleted."
       redirect_to root_path

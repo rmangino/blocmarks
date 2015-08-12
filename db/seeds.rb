@@ -28,10 +28,33 @@ end
 
 user1 = create_user('User1', 'user1@example.com', "helloworld")
 user2 = create_user('User2', 'user2@example.com', "helloworld")
+reed  = create_user('Reed', 'reed@themanginos.com', "helloworld")
 
 ###############################################################################
+
+###############################################################################
+
+# Create Topics and Bookmarks for each user
+
+User.all.each do |user|
+  3.times do
+    topic = Topic.create!(user: user, title: "topic - #{Faker::Lorem.sentence}")
+    3.times do
+      Bookmark.create!(topic: topic, url: Faker::Internet.url('example.com'))
+    end
+  end
+
+  # Create a default topic and bookmark for this user
+  topic = Topic.default_topic_for_user(user)
+  bookmark = Bookmark.create!(topic: topic, url: Faker::Internet.url('example.com'))
+  topic.bookmarks << bookmark
+  topic.save!
+end
+
 
 # Report results
 
 puts "Seed Finished"
 puts "#{User.count} users created"
+puts "#{Topic.count} topics created"
+puts "#{Bookmark.count} bookmarks created"

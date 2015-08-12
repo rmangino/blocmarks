@@ -1,19 +1,30 @@
-<h1>My Blocmarks</h1>
+<h1>Blocmarks</h1>
+<hr />
 
 <div class="row">
-  <div class="col-md-8">
-    <% @topics.each do |topic| %>
-      <div class="media">
-        <div class="media-body">
-          <h4 class="media-heading">
-            <%= render partial: 'topic', locals: { topic: topic } %>
-            <hr />
-          </h4>
+  <div class="col-md-10">
+    <% if can? :read, @topics.first %>
+      <% @topics.each do |topic| %>
+        <div class="media">
+          <div class="media-body">
+            <h4 class="media-heading">
+              <%= render partial: 'topic', locals: { topic: topic } %>
+              <hr />
+            </h4>
+          </div>
         </div>
-      </div>
+      <% end %>
+    <% else %>
+      <p><%= link_to "Sign In", new_user_session_path %>  or
+         <%= link_to "Sign Up", new_user_registration_path %> to create your own Blocmarks!</p>
     <% end %>
   </div>
-  <div class="col-md-4">
-    <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+
+  <div class="col-md-2">
+    <% if current_user %>
+      <%= link_to new_topic_path do %>
+        <i class="glyphicon glyphicon-plus"></i>&nbsp; New Topic
+      <% end %>
+    <% end %>
   </div>
 </div>

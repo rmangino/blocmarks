@@ -30,6 +30,9 @@ gem 'figaro'
 
 gem 'redcarpet'
 
+# Authorization
+gem 'cancancan', '~> 1.12.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
