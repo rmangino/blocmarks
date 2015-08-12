@@ -20,8 +20,7 @@ class TopicsController < ApplicationController
       redirect_to root_path
     else
       flash[:error] = "There was an error saving the Topic. Please try again."
-      # RRM
-      redirect_to :new
+      render :new
     end
   end
 
