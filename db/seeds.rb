@@ -38,7 +38,7 @@ reed  = create_user('Reed', 'reed@themanginos.com', "helloworld")
 
 User.all.each do |user|
   3.times do
-    topic = Topic.create!(user: user, title: "topic - #{Faker::Lorem.sentence}")
+    topic = Topic.create!(user: user, title: "topic-#{Faker::Lorem.word}")
     3.times do
       Bookmark.create!(topic: topic, url: Faker::Internet.url('example.com'))
     end

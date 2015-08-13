@@ -26,12 +26,14 @@ ActiveRecord::Schema.define(version: 20150804191313) do
   add_index "bookmarks", ["topic_id"], name: "index_bookmarks_on_topic_id", using: :btree
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",      null: false
+    t.string   "slug",       null: false
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "topics", ["slug"], name: "index_topics_on_slug", unique: true, using: :btree
   add_index "topics", ["user_id"], name: "index_topics_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|

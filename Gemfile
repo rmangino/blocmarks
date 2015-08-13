@@ -33,6 +33,9 @@ gem 'redcarpet'
 # Authorization
 gem 'cancancan', '~> 1.12.0'
 
+# Readable URLs
+gem 'friendly_id', '~> 5.1.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

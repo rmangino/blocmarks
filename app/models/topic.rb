@@ -1,7 +1,11 @@
 class Topic < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   belongs_to :user
   has_many :bookmarks, dependent: :destroy
 
+  validates_presence_of :title, :slug
   validates :title, length: { minimum: 5 }
 
   # Always grab the newest Topics first
