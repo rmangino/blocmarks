@@ -14,5 +14,16 @@
     <% end %>
 
     <a target="blank" href=<%= "#{bookmark.url}" %>><%= bookmark.url %></a>
+
+    <div class="container">
+    <% description, url = description_and_image_for_url(bookmark.url) %>
+    <% if description %>
+      <p><%= truncate(description, :length => 100, :omission => '... (continued)') %></p>
+    <% end %>
+
+    <% if url %>
+      <p><%= image_tag(url) %></p>
+    <% end %>
+    </div>
   </div>
 <% end %>

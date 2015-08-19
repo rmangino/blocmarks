@@ -8,4 +8,11 @@ module ApplicationHelper
     end
   end
 
+  def description_and_image_for_url(url, maxwidth = 75)
+    embedly_api = Embedly::API.new(key: ENV['EMBEDLY_KEY'])
+    obj = embedly_api.oembed(url: url, image_width: maxwidth, type: 'photo').first
+
+    return obj[:description], obj[:thumbnail_url]
+  end
+
 end
