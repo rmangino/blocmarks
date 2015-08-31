@@ -15,3 +15,22 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+$( document ).ready(function() {
+  $( window ).click( function() {
+      console.log( "3You clicked!!!!!!" );
+      blocmetrics.report("click");
+  });
+});
+
+var blocmetrics = {};
+
+blocmetrics.report = function(eventName) {
+  var event = { name: eventName };
+  var request = new XMLHttpRequest();
+
+  request.open("POST", "http://localhost:3000/api/events", true);
+  request.setRequestHeader('Content-Type', 'application/json');
+
+  request.send(JSON.stringify(event));
+}
