@@ -74,6 +74,9 @@ group :development, :test do
 
   # Required to use Chrome's RailsPanel extension
   gem 'meta_request'
+
+  # Generate ActiveRecord (table) visualizations
+  gem 'rails-erd'
 end
 
 group :production do
